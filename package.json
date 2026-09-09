@@ -1,0 +1,24 @@
+{
+  "name": "product-specs-mcp",
+  "version": "0.1.0",
+  "description": "MCP server over the QCObjects product-specs docs — teaches AI agents framework usage for app creation. Runs on Cloudflare Workers.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest run",
+    "lint": "tsc --noEmit",
+    "check": "npm run lint && npm test"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260908.1",
+    "typescript": "^5.9.2",
+    "vitest": "^5.0.0",
+    "wrangler": "^4.130.0"
+  }
+}

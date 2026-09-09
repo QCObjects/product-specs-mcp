@@ -1,0 +1,16 @@
+name: main-pr-source
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR to main must come from development
+        run: |
+          if [ "${{ github.head_ref }}" != "development" ]; then
+            echo "PRs to main MUST originate from development (got '${{ github.head_ref }}')"
+            exit 1
+          fi

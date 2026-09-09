@@ -1,0 +1,14 @@
+name = "product-specs-mcp"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# CLOUDFLARE_ACCOUNT_ID must be set as a GitHub Actions secret (see README).
+# For local deploys, run `wrangler login` or set CLOUDFLARE_API_TOKEN.
+# account_id intentionally omitted here — provided via secret at deploy time.
+
+[vars]
+DOCS_BASE_URL = "https://qcobjects.github.io/product-specs/"
+INDEX_TTL_SECONDS = "3600"
+
+[observability]
+enabled = true

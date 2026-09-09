@@ -1,0 +1,40 @@
+name: auto-pr-to-development
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      - 'bugfix/**'
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Open PR to development
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const branch = context.ref.replace('refs/heads/', '');
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              base: 'development',
+              state: 'open',
+            });
+            if (prs.length === 0) {
+              await github.rest.pulls.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head: branch,
+                base: 'development',
+                title: `PR: ${branch} → development`,
+                body: 'Auto-opened by workflow. Fill in description and verification.',
+              });
+            }
